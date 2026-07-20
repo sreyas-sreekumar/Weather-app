@@ -1,0 +1,464 @@
+* {
+  box-sizing: border-box;
+}
+body 
+{
+margin :0;
+  font-family : system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  color : white;
+}
+html,body,#root {
+  height: 100%;
+  width: 100%;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+.app{
+  position: relative; /* ADD THIS LINE */
+  min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    width: 100%;
+
+    /* 1. Change background-size to 110% so the browser has room to pan */
+    background-size: 110% 110%;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    transition: background 0.8s ease, background-image 2s ease;
+    transition: all 1.2s ease-in-out;
+
+    /* 2. ADD THE MAGIC LINE HERE */
+    animation: slowPan 25s ease-in-out infinite alternate;
+}
+
+@keyframes slowPan {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 50% 100%; }
+}
+
+.container {
+  width : 100%;
+  max-width : 600px;
+  display:flex;
+  flex-direction: column;
+  gap : 20px;
+}
+
+
+.search-group 
+{
+  display: flex;
+  gap :10px;
+  width : 100%;
+  background : rgba(0,0,0,0.2);
+  border-radius: 40px;
+  overflow: hidden;
+  border:none;
+  outline:none;
+  padding: 12px 20px;
+}
+input{
+  background: transparent;
+  border : none;
+  outline : none;
+  color:white;
+  flex :1;
+}
+.card {
+  background : rgba(255,255,255,0.08);
+  border-radius : 20px;
+  padding : 20px;
+  backdrop-filter: blur(10px);
+  border : 1px solid rgba (255,255,255,0.12);
+}
+button {
+  border-radius: 20px;
+  border:none;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #dbdfff;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #000000;
+}
+button:focus,
+button:focus-visible {
+  outline: 2px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+.dashboard-layout
+{
+  display: flex;
+  gap:30px;
+  width:100%;
+  max-width: 1100px;
+  min-height: 100vh;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar{
+  position: absolute;
+  left: 50px;
+  top: 5vh;;
+  width: 260px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 25px 20px;
+  color: white;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+.sidebar h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+  color: rgba(255, 255, 255, 0.9);
+}
+.saved-city-stack-vertical {
+display: flex;
+flex-direction: column;
+gap:12px;
+}
+
+.city-name-vertical
+{
+  background: rgba(255, 255, 255, 0.08);
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.city-name-vertical:hover
+{
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(4px); /* Slides slightly right toward the app for premium feel */
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  .dashboard-layout {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 10px;
+  }
+  .sidebar {
+    width: 100%;
+    max-width: 450px; /* Matches your main container size on mobile */
+  }
+  .city-name-vertical:hover {
+    transform: translateY(-2px); /* standard up-lift for mobile layouts */
+  }
+}
+
+
+.statsGrid {
+  display :grid;
+  grid-template-columns: repeat(2,1fr);
+  gap:15px;
+}
+
+.weatherHeader {
+  text-align: center;
+  margin:40px 0;
+
+}
+
+.tempHeader{
+  font-size: 5rem;
+  font-weight: lighter;
+  margin :0;
+}
+
+.statLabel {
+  font-size:0.8rem;
+  opacity :0.6;
+  text-transform: uppercase;
+}
+
+.statValue
+{
+  text-align: center;
+  font-size:2rem;
+  font-weight : 400;
+}
+
+.fullWidth
+{
+  grid-column:span 2;
+}
+
+.hourlyForecastContainer
+{
+  background : rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding:0px;
+  margin:20px 0;
+  overflow:hidden;
+}
+
+.sectionTitle
+{
+  font-size:0.9rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  opacity: 0.85;
+
+}
+
+.hourlyScroll
+{
+  display: flex;
+  overflow-x:auto;
+  gap:20px;
+  padding: 15px;
+  padding-bottom : 10px;
+  scrollbar-width: thin;
+
+}
+
+.hourlyItem
+{
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  min-width: 75px;
+  flex-shrink:0;
+}
+
+.hourlyTime
+{
+  font-size:0.9rem;
+  opacity: 0.78;
+  font-weight: light;
+}
+
+.hourlyTemp
+{
+  font-size:1.5rem;
+  font-weight:700;
+}
+
+.frostedHeader
+{
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding:12px 15px;
+  border-bottom : 1px solid rgba(255,255,255,0.1);
+  margin-bottom:10px;
+}
+
+.dailyForecastContainer
+{
+   background : rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding:0px;
+  margin:20px 0;
+  overflow:hidden;
+}
+
+
+.dailyRow
+{
+  display:flex;
+  flex-direction: column;
+  padding:0 20px;
+}
+
+.dailyItem
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding : 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.dailyItem img
+{
+  width: 45px;
+  height: 45px;
+  flex:1;
+  object-fit: contain;
+}
+
+.dayName
+{
+  flex:1;
+  font-size:0.9rem;
+  opacity: 0.78;
+  font-weight: 300;
+}
+
+.dailyTemp
+{
+  flex:1;
+  text-align: right;
+  font-size:1.5rem;
+  font-weight:700;
+
+}
+@media (max-width : 480px)
+{
+  .statsGrid
+  {
+    grid-template-columns:1fr;
+  }
+  .tempHeader
+  {
+    font-size: 3.5rem;
+  }
+  .container
+  {
+    padding: 0 25px;
+  }
+  .fullWidth
+  {
+    grid-column: span 1;
+  }
+}
+
+
+.defaultTheme
+{
+  background-color: #020024; /* Add this baseline color */
+  background-image: 
+    linear-gradient(180deg, rgba(2, 0, 36, 0.99), rgba(38, 0, 35, 0.6)), 
+    var(--wallpaper);
+}
+
+.rainBG
+{
+  position: relative;
+  background-color: #203a43; /* Add this baseline color */
+  background-image: 
+    linear-gradient(180deg, rgba(32, 58, 67, 0.8), rgba(0, 0, 0, 0.7)), 
+    var(--wallpaper);
+}
+
+.rainBG::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2); /* Subtle 20% dark tint */
+    z-index: 0;
+}
+.rainBG .container {
+    position: relative;
+    z-index: 1; /* Puts UI on top of the tint */
+}
+
+.sunnyBG
+{
+  position: relative;
+  background-color: #4facfe; /* Add this baseline color */
+  background-image: 
+    linear-gradient(180deg, rgba(0, 191, 255, 0.85), rgba(250, 150, 0, 0.4)), 
+    var(--wallpaper);
+}
+.sunnyBG::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2); /* Subtle 20% dark tint */
+    z-index: 0;
+}
+.sunnyBG .container {
+    position: relative;
+    z-index: 1; /* Puts UI on top of the tint */
+}
+
+.delete-button{
+  background: transparent !important;
+  border : none !important;
+  color : rgba(255,255,255,0.4) !important;
+  padding : 0.5px !important;
+  font-size: 1.2rem !important;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2 ease !important ;
+}
+
+.delete-button:hover{
+  color : #ff4a4a !important;
+
+}
+
+@media (max-width: 1024px) {
+  /* 1. Turn off the absolute positioning context */
+  .sidebar {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    
+    /* 2. Make it span the full width of your center area */
+    width: 100%;
+    max-width: 600px; /* Perfectly matches your main container width */
+    margin: 0 auto 20px auto; /* Centers it and adds space below */
+    padding: 15px 20px;
+  }
+
+  /* 3. Change the vertical stack into a wrapping horizontal row */
+  .saved-city-stack-vertical {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* 4. Make the pills scale tightly around the text instead of taking full rows */
+  .city-name-vertical {
+    width: auto;
+    display: inline-flex;
+    padding: 8px 14px;
+    gap: 8px;
+  }
+}

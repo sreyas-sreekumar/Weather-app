@@ -67,7 +67,7 @@ function App()
         queryString = `city=${cityInput.trim()}`
       }
 
-      const responseAPI = await fetch(`http://localhost:5050/api/weather?${queryString}`);
+      const responseAPI = await fetch(`https://srey-weather360-backend.onrender.com/api/weather?${queryString}`);
       console.log("Weather data from backend:", responseAPI);
 
       if(!responseAPI.ok)
@@ -81,7 +81,7 @@ function App()
       setStatus("loading");
       setError("");
 
-      const forecastResponseAPI = await fetch (`http://localhost:5050/api/forecast?${queryString}`);
+      const forecastResponseAPI = await fetch (`https://srey-weather360-backend.onrender.com/api/forecast?${queryString}`);
       console.log("Forecast data from backend", forecastResponseAPI);
 
       if(!forecastResponseAPI.ok)

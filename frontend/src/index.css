@@ -434,27 +434,23 @@ gap:12px;
 }
 
 @media (max-width: 1024px) {
-  /* 1. Turn off the absolute positioning context */
   .sidebar {
     position: relative !important;
     left: auto !important;
     top: auto !important;
     
-    /* 2. Make it span the full width of your center area */
     width: 100%;
     max-width: 600px; /* Perfectly matches your main container width */
     margin: 0 auto 20px auto; /* Centers it and adds space below */
     padding: 15px 20px;
   }
 
-  /* 3. Change the vertical stack into a wrapping horizontal row */
   .saved-city-stack-vertical {
     flex-direction: row !important;
     flex-wrap: wrap;
     gap: 10px;
   }
 
-  /* 4. Make the pills scale tightly around the text instead of taking full rows */
   .city-name-vertical {
     width: auto;
     display: inline-flex;

@@ -23,6 +23,7 @@ function App()
   const [weather,setWeather] = useState(null);
   const [error,setError] = useState("");
   const [forecast , setForecast] = useState(null);
+  const[searchID,setSearchID] = useState(0);
 
   const[savedCities,setSavedCities] = useState(() => 
   {
@@ -37,6 +38,7 @@ function App()
 
   const searchHandle = useCallback(async (locationString ) => 
     {
+      setSearchID(Date.now());
       setStatus("loading");
     setError("");
     setWeather(null);
@@ -102,6 +104,8 @@ function App()
       setStatus("error");
 
     }
+
+
   },[]);
   useEffect(() => 
     {
@@ -197,93 +201,94 @@ function App()
                 placeholder= "Enter a city to find out..." />
               <button onClick = { () => searchHandle(cityInput)}>Search</button> 
             </div>
-            {status === "loading" && <p>Loading state ...</p>}
-            {status === "success" && <p>Weather state loaded successfully...</p>}
+            {status === "loading" && <div className="loader"></div>}
             {status === "error" && <p>{error}</p>}
 
             {status === "success" && weather && (
-                <div>
-                  <div className = "weatherHeader">
-                    <h2>{weather.city}</h2>
-                    <h1 className="tempHeader">{weather.temperature}°C</h1>
-                    <p>{weather.condition}</p>
-                      {
-                        weather.icon && (<img src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`} alt = "Weather Icon"/>)
-                      }
-                    <br></br>
-                    <button onClick={() => handleSaveCity(weather.city)}> Save City</button>
-                  </div>
-                  {forecast && (
-                    <div className="hourlyForecastContainer">
-                      <div className = "frostedHeader">
-                        <h2 className="sectionTitle">Next 24 Hours</h2>
-                      </div>
-                      <div className="hourlyScroll">
-                        {forecast.list.slice(0,8).map((hourItem)=>
-                          { 
-                            const time = new Date(hourItem.dt * 1000);
-                            const dayNum = time.getDate();
-                            const month = time.toLocaleString('en-GB',{month : 'long'})
-                            const ordinal = getOrdinal(dayNum);
-                            const formattedDate = `${dayNum}${ordinal} ${month}`;
-                            return (
-                              <div key={hourItem.dt} className = "hourlyItem">
-                                <p className="hourlyTime">{formattedDate}</p>
-                                <img src = {`https://openweathermap.org/img/wn/${hourItem.weather[0].icon}.png`} alt = "icon for weather" />
-                                <p className = "hourlyTemp">{Math.round(hourItem.main.temp)}°</p>
-                              </div>
-                            );
-                          })
-                        }
-                      </div>
-                    </div>
-                  )}
-                  <div className = "statsGrid">
-                  {weather.uvIndex !== undefined && (
-                    <div className="card">
-                      <p>UV Index : {weather.uvIndex}</p>
-                    </div>
-                  )}
-
-                    <div className="card">
-                      <p className="statLabel">Feels like</p>
-                      <p className = "statValue">{weather.feelsLike}°C</p>
-                    </div>
-                    <div className="card">                  
-                      <p className="statLabel">Humidity </p>
-                      <p className = "statValue">{weather.humidity}%</p>
-                    </div>
-                    <div className="card">                  
-                      <p className="statLabel">Wind Speed</p>
-                      <p className = "statValue">{weather.windSpeed} m/s</p>
-                    </div>
-                    <div className="card">                  
-                      <p className="statLabel">Cloud Coverage</p>
-                      <p className="statValue">{weather.cloudCover}%</p>
-                    </div>
-                  </div>
-                  {forecast && (
-                    <div className = "dailyForecastContainer">
-                      <div className="frostedHeader">
-                        <h2 className="sectionTitle">Next 5 Days</h2>
-                      </div>
-                      <div className = "dailyRow">
+              <div className="weather-container-animated" key={searchID} >
+                  <div>
+                    <div className = "weatherHeader">
+                      <h2>{weather.city}</h2>
+                      <h1 className="tempHeader">{weather.temperature}°C</h1>
+                      <p>{weather.condition}</p>
                         {
-                          dailyData.map((day) => {
-                            const dayName = new Date(day.dt * 1000).toLocaleDateString('en-GB',{weekday : 'long'});
-                            return(
-                              <div key={day.dt} className = "dailyItem">
-                                <p className="dayName">{dayName}</p>
-                                <img src = {`https://openweathermap.org/img/wn/${day.weather[0].icon}.png`} alt = "icon for weather" />
-                                <p className = "hourlyTemp">{Math.round(day.main.temp)}°</p>
-                              </div>
-                            )
+                          weather.icon && (<img src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`} alt = "Weather Icon"/>)
+                        }
+                      <br></br>
+                      <button onClick={() => handleSaveCity(weather.city)}> Save City</button>
+                    </div>
+                    {forecast && (
+                      <div className="hourlyForecastContainer">
+                        <div className = "frostedHeader">
+                          <h2 className="sectionTitle">Next 24 Hours</h2>
+                        </div>
+                        <div className="hourlyScroll">
+                          {forecast.list.slice(0,8).map((hourItem)=>
+                            { 
+                              const time = new Date(hourItem.dt * 1000);
+                              const dayNum = time.getDate();
+                              const month = time.toLocaleString('en-GB',{month : 'long'})
+                              const ordinal = getOrdinal(dayNum);
+                              const formattedDate = `${dayNum}${ordinal} ${month}`;
+                              return (
+                                <div key={hourItem.dt} className = "hourlyItem">
+                                  <p className="hourlyTime">{formattedDate}</p>
+                                  <img src = {`https://openweathermap.org/img/wn/${hourItem.weather[0].icon}.png`} alt = "icon for weather" />
+                                  <p className = "hourlyTemp">{Math.round(hourItem.main.temp)}°</p>
+                                </div>
+                              );
+                            })
                           }
-                        )}
+                        </div>
                       </div>
-                    </div> 
-                  )}
-                </div>
+                    )}
+                    <div className = "statsGrid">
+                    {weather.uvIndex !== undefined && (
+                      <div className="card">
+                        <p>UV Index : {weather.uvIndex}</p>
+                      </div>
+                    )}
+
+                      <div className="card">
+                        <p className="statLabel">Feels like</p>
+                        <p className = "statValue">{weather.feelsLike}°C</p>
+                      </div>
+                      <div className="card">                  
+                        <p className="statLabel">Humidity </p>
+                        <p className = "statValue">{weather.humidity}%</p>
+                      </div>
+                      <div className="card">                  
+                        <p className="statLabel">Wind Speed</p>
+                        <p className = "statValue">{weather.windSpeed} m/s</p>
+                      </div>
+                      <div className="card">                  
+                        <p className="statLabel">Cloud Coverage</p>
+                        <p className="statValue">{weather.cloudCover}%</p>
+                      </div>
+                    </div>
+                    {forecast && (
+                      <div className = "dailyForecastContainer">
+                        <div className="frostedHeader">
+                          <h2 className="sectionTitle">Next 5 Days</h2>
+                        </div>
+                        <div className = "dailyRow">
+                          {
+                            dailyData.map((day) => {
+                              const dayName = new Date(day.dt * 1000).toLocaleDateString('en-GB',{weekday : 'long'});
+                              return(
+                                <div key={day.dt} className = "dailyItem">
+                                  <p className="dayName">{dayName}</p>
+                                  <img src = {`https://openweathermap.org/img/wn/${day.weather[0].icon}.png`} alt = "icon for weather" />
+                                  <p className = "hourlyTemp">{Math.round(day.main.temp)}°</p>
+                                </div>
+                              )
+                            }
+                          )}
+                        </div>
+                      </div> 
+                    )}
+                  </div>
+              </div>
               )}
             
         </div> 

@@ -1,5 +1,9 @@
+
+
 # Weather360 — Full-Stack Weather Application
 A responsive, glassmorphic weather application built with React and Express. Weather360 provides real-time atmospheric conditions, multi-day forecasts, geolocation integration, and localized city searching.
+
+<img width="1228" height="1279" alt="Screenshot 2026-07-22 at 03 24 13" src="https://github.com/user-attachments/assets/09c98957-f6dd-4300-8c98-47d7d648ffc0" />
 
 ## Key Features
 - Geolocation & Geocoding: Automatically fetches weather for your current location using browser GPS with seamless fallback defaults.
